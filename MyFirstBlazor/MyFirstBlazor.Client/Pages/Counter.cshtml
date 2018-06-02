@@ -1,0 +1,67 @@
+﻿@page "/counter"
+@using Microsoft.AspNetCore.Blazor.Components
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
+
+@*<button class="btn btn-primary" onclick="@(() => currentCount += increment)">Click me</button>*@
+
+<input type="number" bind="@increment" />
+
+<button class="btn btn-success" onclick="@AutoIncrement">Auto Increment</button>
+
+@*<input type="number" value="@increment" onchange="@((UIChangeEventArgs e) => increment = int.Parse($"{e.Value}"))" />*@
+
+@*<input type="text" value="@val" onkeypress="@HandleKey" />*@
+@*<br />*@
+
+@*<input type="checkbox" class="form-check-input" id="reverse" bind="@reverse" />*@
+
+@*<input type="text" bind="@someDate" format-value="dd-MM-yyyy"/>*@
+
+@functions {
+    int currentCount = 0;
+
+    int increment = 1;
+
+    //private bool reverse;
+
+    //private string val = "";
+    //private string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    //private DateTime someDate = DateTime.Now;
+
+    //void HandleKey(UIKeyboardEventArgs e)
+    //{
+    //  if (validChars.Contains(e.Key))
+    //  {
+    //    val += e.Key;
+    //  }
+    //  Console.WriteLine($"{e.Key}");
+    //}
+
+    void IncrementCount()
+    {
+      //if (reverse)
+      //{
+      //  currentCount -= increment;
+      //}
+      //else
+      //{
+      currentCount += increment;
+      //}
+      //reverse = currentCount > 9;
+    }
+
+    void AutoIncrement()
+    {
+      var timer = new System.Threading.Timer((_) =>
+      {
+        IncrementCount();
+        StateHasChanged();
+      }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+    }
+}
