@@ -121,3 +121,7 @@ app {
         display: block;
     }
 }
+
+.validation-error li {
+  color: red;
+}
