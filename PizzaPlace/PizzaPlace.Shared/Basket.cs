@@ -20,7 +20,7 @@ namespace PizzaPlace.Shared
 
     public void RemoveAt(int index)
     {
-      Orders.Remove(index);
+      Orders.RemoveAt(index);
     }
   }
 }
