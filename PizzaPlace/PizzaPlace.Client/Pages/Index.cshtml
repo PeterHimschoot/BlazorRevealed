@@ -1,152 +1,96 @@
 ﻿@page "/"
+@implements IDisposable
+
 <!-- Menu -->
-
-<h1>Our selection of pizzas</h1>
-
-@foreach (var pizza in State.Menu.Pizzas)
-{
-  <div class="row">
-    <div class="col">
-      @pizza.Name
-    </div>
-    <div class="col">
-      @pizza.Price
-    </div>
-    <div class="col">
-      <img src="@SpicinessImage(pizza.Spicyness)" alt="@pizza.Spicyness" />
-    </div>
-    <div class="col">
-      <button class="btn btn-success" onclick="@(() => AddToBasket(pizza))">Add</button>
-    </div>
-  </div>
-}
-
+<PizzaList Title="Our selected list of pizzas" Menu="@State.Menu" Selected="@((pizza) => AddToBasket(pizza))" />
 <!-- End menu -->
 <!-- Shopping Basket -->
-
-@if (State.Basket.Orders.Any())
-{
-  <h1>Your current order</h1>
-
-  @foreach (var (pizza, pos) in State.Basket.Orders.Select((id, pos) => (State.Menu.GetPizza(id), pos)))
-  {
-    <div class="row">
-      <div class="col">
-        @pizza.Name
-      </div>
-      <div class="col">
-        @pizza.Price
-      </div>
-      <div class="col">
-        <button class="btn btn-danger" onclick="@(() => RemoveFromBasket(pos))">Remove</button>
-      </div>
-    </div>
-  }
-  <div class="row">
-    <div class="col"> Total: </div>
-    <div class="col"> @State.TotalPrice </div>
-    <div class="col"> </div>
-  </div>
-
-  @*<button onclick="@ShowBasket">Debug</button>*@
-}
-
+<ShoppingBasket Title="Your current order" Basket="@State.Basket" GetPizzaFromId="@State.Menu.GetPizza" Selected="@(pos => RemoveFromBasket(pos))" />
 <!-- End shopping basket -->
 <!-- Customer entry -->
-<h1>Please enter your details below</h1>
-
-<fieldset>
-  <p>
-    <label for="name">Name:</label>
-    <input id="name" bind="@State.Basket.Customer.Name" />
-    @if (State.Basket.Customer.GetErrors(nameof(Customer.Name)).Any())
-    {
-      <ul class="validation-error">
-        @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Name)))
-        {
-          <li>@error</li>
-        }
-      </ul>
-    }
-  </p>
-  <p>
-    <label for="street">Street:</label>
-    <input id="street" bind="@State.Basket.Customer.Street" />
-    @if (State.Basket.Customer.GetErrors(nameof(Customer.Street)).Any())
-    {
-      <ul class="validation-error">
-        @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Street)))
-        {
-          <li>@error</li>
-        }
-      </ul>
-    }
-  </p>
-  <p>
-    <label for="city">City:</label>
-    <input id="city" bind="@State.Basket.Customer.City" />
-    @if (State.Basket.Customer.GetErrors(nameof(Customer.City)).Any())
-    {
-      <ul class="validation-error">
-        @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.City)))
-        {
-          <li>@error</li>
-        }
-      </ul>
-    }
-  </p>
-
-  <button onclick="@PlaceOrder" disabled="@State.Basket.Customer.HasErrors">Checkout</button>
-
-</fieldset>
-
+<CustomerEntry Title="Please enter your details below" bind-Customer="@State.Basket.Customer" Submit="@((_) => PlaceOrder())"/>
 <!-- End customer entry -->
 
 <p>@State.ToJson()</p>
 
 @functions {
 
-private State State { get; } = new State()
-{
-  Menu = new Menu
-  {
-    Pizzas = new List<Pizza>
+    public void Dispose()
+    {
+      // Cleanup resources here
+
+    }
+
+    private State State { get; } = new State()
+    {
+      Menu = new Menu
+      {
+        Pizzas = new List<Pizza>
 {
 new Pizza(1, "Pepperoni", 8.99M, Spiciness.Spicy ),
 new Pizza(2, "Margarita", 7.99M, Spiciness.None ),
 new Pizza(3, "Diabolo", 9.99M, Spiciness.Hot )
 }
-  }
-};
-
-private string SpicinessImage(Spiciness spiciness)
-  => $"images/{spiciness.ToString().ToLower()}.png";
-
-private void AddToBasket(Pizza pizza)
-{
-  Console.WriteLine($"Added pizza {pizza.Name}");
-  State.Basket.Add(pizza.Id);
-}
-
-private void RemoveFromBasket(int pos)
-{
-  Console.WriteLine($"Removing pizza at pos {pos}");
-  State.Basket.RemoveAt(pos);
-  StateHasChanged();
-}
-
-private void PlaceOrder()
-{
-  Console.WriteLine("Placing order");
-}
+      }
+    };
 
 
-//private void ShowBasket()
-//{
-//  foreach(var id in State.Basket.Orders)
-//  {
-//    Console.WriteLine(id);
+    private void AddToBasket(Pizza pizza)
+    {
+      Console.WriteLine($"Added pizza {pizza.Name}");
+      State.Basket.Add(pizza.Id);
+      StateHasChanged();
+    }
 
-//  }
-//}
+    private void RemoveFromBasket(int pos)
+    {
+      Console.WriteLine($"Removing pizza at pos {pos}");
+      State.Basket.RemoveAt(pos);
+      StateHasChanged();
+    }
+
+    private void PlaceOrder()
+    {
+      Console.WriteLine($"Placing order {State.Basket.Customer.ToJson()}");
+    }
+
+    protected override void OnInit()
+    {
+
+    }
+
+    protected override async Task OnInitAsync()
+    {
+
+    }
+
+    protected override void OnParametersSet()
+    {
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+    }
+
+    protected override void OnAfterRender()
+    {
+
+    }
+
+    protected override async Task OnAfterRenderAsync()
+    {
+
+    }
+
+
+    //private void ShowBasket()
+    //{
+    //  foreach(var id in State.Basket.Orders)
+    //  {
+    //    Console.WriteLine(id);
+
+    //  }
+    //}
 }

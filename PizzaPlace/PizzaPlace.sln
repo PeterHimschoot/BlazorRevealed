@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaPlace.Client", "PizzaP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaPlace.Shared", "PizzaPlace.Shared\PizzaPlace.Shared.csproj", "{BBEF92EA-7928-4DD6-9059-3B15002D3459}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaPlace.Extensions.Validation", "PizzaPlace.Extensions.Validation\PizzaPlace.Extensions.Validation.csproj", "{9216B40A-5BE8-4223-ABE1-CC21EF02F952}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BBEF92EA-7928-4DD6-9059-3B15002D3459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBEF92EA-7928-4DD6-9059-3B15002D3459}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBEF92EA-7928-4DD6-9059-3B15002D3459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9216B40A-5BE8-4223-ABE1-CC21EF02F952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9216B40A-5BE8-4223-ABE1-CC21EF02F952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9216B40A-5BE8-4223-ABE1-CC21EF02F952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9216B40A-5BE8-4223-ABE1-CC21EF02F952}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

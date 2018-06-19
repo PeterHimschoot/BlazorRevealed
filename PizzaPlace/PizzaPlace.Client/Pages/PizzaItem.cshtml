@@ -1,0 +1,33 @@
+﻿<div class="row">
+  <div class="col">
+    @Pizza.Name
+  </div>
+  <div class="col">
+    @Pizza.Price
+  </div>
+  <div class="col">
+    <img src="@SpicinessImage(Pizza.Spicyness)" alt="@Pizza.Spicyness" />
+  </div>
+  <div class="col">
+    <button class="@ButtonClass" onclick="@(() => Selected(Pizza))">@ButtonTitle</button>
+  </div>
+</div>
+
+@functions {
+
+[Parameter]
+protected Pizza Pizza { get; set; }
+
+[Parameter]
+protected string ButtonTitle { get; set; }
+
+[Parameter]
+protected string ButtonClass { get; set; }
+
+[Parameter]
+protected Action<Pizza> Selected { get; set; }
+
+private string SpicinessImage(Spiciness spiciness)
+=> $"images/{spiciness.ToString().ToLower()}.png";
+
+}

@@ -1,0 +1,18 @@
+﻿<h1>@Title</h1>
+
+@foreach (var pizza in Menu.Pizzas)
+{
+  <PizzaItem Pizza="@pizza" ButtonTitle="Order" ButtonClass="btn btn-success" Selected="@((p) => Selected(p))" />
+}
+
+@functions {
+
+[Parameter]
+protected string Title { get; set; }
+
+[Parameter]
+protected Menu Menu { get; set; }
+
+[Parameter]
+protected Action<Pizza> Selected { get; set; }
+}
