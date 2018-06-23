@@ -1,5 +1,7 @@
 ﻿@page "/"
 @implements IDisposable
+@inject IMenuService  menuService
+@inject IOrderService  orderService
 
 <!-- Menu -->
 <PizzaList Title="Our selected list of pizzas" Menu="@State.Menu" Selected="@((pizza) => AddToBasket(pizza))" />
@@ -21,19 +23,12 @@
 
     }
 
-    private State State { get; } = new State()
-    {
-      Menu = new Menu
-      {
-        Pizzas = new List<Pizza>
-{
-new Pizza(1, "Pepperoni", 8.99M, Spiciness.Spicy ),
-new Pizza(2, "Margarita", 7.99M, Spiciness.None ),
-new Pizza(3, "Diabolo", 9.99M, Spiciness.Hot )
-}
-      }
-    };
+    private State State { get; } = new State();
 
+    protected override async Task OnInitAsync()
+    {
+      State.Menu = await menuService.GetMenu();
+    }
 
     private void AddToBasket(Pizza pizza)
     {
@@ -49,17 +44,12 @@ new Pizza(3, "Diabolo", 9.99M, Spiciness.Hot )
       StateHasChanged();
     }
 
-    private void PlaceOrder()
+    private async Task PlaceOrder()
     {
-      Console.WriteLine($"Placing order {State.Basket.Customer.ToJson()}");
+      await orderService.PlaceOrder(State.Basket);
     }
 
     protected override void OnInit()
-    {
-
-    }
-
-    protected override async Task OnInitAsync()
     {
 
     }
