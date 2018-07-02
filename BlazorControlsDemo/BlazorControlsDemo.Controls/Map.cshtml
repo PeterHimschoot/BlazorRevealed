@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Blazor.Components
+
+<div id="@Id" style='position:relative;width:600px;height:400px;background:yellow;'>
+</div>
+
+@functions  {
+
+[Parameter]
+protected string Id { get; set; }
+
+[Parameter]
+protected string Key { get; set; }
+
+
+protected override void OnAfterRender()
+{
+  base.OnAfterRender();
+  BlazorControlsDemo.Controls.BingMap.Load(Id, Key);
+}
+}
