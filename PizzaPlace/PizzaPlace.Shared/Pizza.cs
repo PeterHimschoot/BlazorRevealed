@@ -13,6 +13,8 @@ namespace PizzaPlace.Shared
 
   public class Pizza
   {
+    public Pizza() { }
+
     public Pizza(int id, string name, decimal price, Spiciness spicyness)
     {
       this.Id = id;
@@ -21,9 +23,9 @@ namespace PizzaPlace.Shared
       this.Spicyness = spicyness;
     }
 
-    public int Id { get; }
-    public string Name { get; }
-    public decimal Price { get; }
-    public Spiciness Spicyness { get; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public Spiciness Spicyness { get; set; }
   }
 }

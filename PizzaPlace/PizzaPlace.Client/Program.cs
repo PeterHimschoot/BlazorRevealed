@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Blazor.Browser.Rendering;
 using Microsoft.AspNetCore.Blazor.Browser.Services;
 using Microsoft.Extensions.DependencyInjection;
+using PizzaPlace.Client.Services;
 using PizzaPlace.Shared;
 
 namespace PizzaPlace.Client
@@ -12,7 +13,7 @@ namespace PizzaPlace.Client
       var serviceProvider = new BrowserServiceProvider(services =>
       {
         // Add any custom services here
-        services.AddTransient<IMenuService, HardCodedMenuService>();
+        services.AddTransient<IMenuService, MenuService>();
         services.AddTransient<IOrderService, ConsoleOrderService>();
       });
 
