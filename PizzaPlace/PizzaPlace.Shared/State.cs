@@ -14,5 +14,7 @@ namespace PizzaPlace.Shared
     public UI UI { get; set; } = new UI();
 
     public decimal TotalPrice => Basket.Orders.Sum(id => Menu.GetPizza(id).Price);
+
+    public Pizza CurrentPizza { get; set; }
   }
 }

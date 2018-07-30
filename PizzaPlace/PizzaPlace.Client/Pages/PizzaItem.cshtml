@@ -1,6 +1,6 @@
 ﻿<div class="row">
   <div class="col">
-    @Pizza.Name
+    <a href="" onclick="@(() => ShowPizzaInformation(Pizza))">@Pizza.Name</a>
   </div>
   <div class="col">
     @Pizza.Price
@@ -15,19 +15,21 @@
 
 @functions {
 
-[Parameter]
-protected Pizza Pizza { get; set; }
+  [Parameter]
+  protected Pizza Pizza { get; set; }
 
-[Parameter]
-protected string ButtonTitle { get; set; }
+  [Parameter]
+  protected string ButtonTitle { get; set; }
 
-[Parameter]
-protected string ButtonClass { get; set; }
+  [Parameter]
+  protected string ButtonClass { get; set; }
 
-[Parameter]
-protected Action<Pizza> Selected { get; set; }
+  [Parameter]
+  protected Action<Pizza> Selected { get; set; }
 
-private string SpicinessImage(Spiciness spiciness)
-=> $"images/{spiciness.ToString().ToLower()}.png";
+  [Parameter]
+  protected Action<Pizza> ShowPizzaInformation { get; set; }
 
+  private string SpicinessImage(Spiciness spiciness)
+  => $"images/{spiciness.ToString().ToLower()}.png";
 }

@@ -1,29 +1,32 @@
 ﻿@page "/"
-@implements IDisposable
+@using Microsoft.AspNetCore.Blazor.Services
 @inject IMenuService  menuService
 @inject IOrderService  orderService
+@inject State State
+@inject IUriHelper UriHelper
 
 <!-- Menu -->
-<PizzaList Title="Our selected list of pizzas" Menu="@State.Menu" Selected="@((pizza) => AddToBasket(pizza))" />
+<PizzaList Title="Our selected list of pizzas" Menu="@State.Menu" 
+           Selected="@((pizza) => AddToBasket(pizza))"
+           ShowPizzaInformation="@((pizza) => ShowPizzaInformation(pizza))"/>
 <!-- End menu -->
 <!-- Shopping Basket -->
-<ShoppingBasket Title="Your current order" Basket="@State.Basket" GetPizzaFromId="@State.Menu.GetPizza" Selected="@(pos => RemoveFromBasket(pos))" />
+<ShoppingBasket Title="Your current order" 
+                Basket="@State.Basket" 
+                GetPizzaFromId="@State.Menu.GetPizza" 
+                Selected="@(pos => RemoveFromBasket(pos))" />
 <!-- End shopping basket -->
 <!-- Customer entry -->
-<CustomerEntry Title="Please enter your details below" bind-Customer="@State.Basket.Customer" Submit="@((_) => PlaceOrder())"/>
+<CustomerEntry Title="Please enter your details below" 
+                bind-Customer="@State.Basket.Customer" 
+                Submit="@(async (_) => await PlaceOrder())" />
 <!-- End customer entry -->
 
 <p>@State.ToJson()</p>
 
 @functions {
 
-    public void Dispose()
-    {
-      // Cleanup resources here
-
-    }
-
-    private State State { get; } = new State();
+    //private State State { get; } = new State();
 
     protected override async Task OnInitAsync()
     {
@@ -49,38 +52,10 @@
       await orderService.PlaceOrder(State.Basket);
     }
 
-    protected override void OnInit()
+    private void ShowPizzaInformation(Pizza pizza)
     {
-
+      State.CurrentPizza = pizza;
+      UriHelper.NavigateTo("/PizzaInfo");
     }
 
-    protected override void OnParametersSet()
-    {
-
-    }
-
-    protected override async Task OnParametersSetAsync()
-    {
-
-    }
-
-    protected override void OnAfterRender()
-    {
-
-    }
-
-    protected override async Task OnAfterRenderAsync()
-    {
-
-    }
-
-
-    //private void ShowBasket()
-    //{
-    //  foreach(var id in State.Basket.Orders)
-    //  {
-    //    Console.WriteLine(id);
-
-    //  }
-    //}
 }

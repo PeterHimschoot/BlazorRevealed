@@ -14,7 +14,8 @@ namespace PizzaPlace.Client
       {
         // Add any custom services here
         services.AddTransient<IMenuService, MenuService>();
-        services.AddTransient<IOrderService, ConsoleOrderService>();
+        services.AddTransient<IOrderService, OrderService>();
+        services.AddSingleton<State>();
       });
 
       new BrowserRenderer(serviceProvider).AddComponent<App>("app");

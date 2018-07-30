@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PizzaPlace.Shared
 {
@@ -27,5 +26,7 @@ namespace PizzaPlace.Shared
     public string Name { get; set; }
     public decimal Price { get; set; }
     public Spiciness Spicyness { get; set; }
+
+    public List<PizzaOrder> PizzaOrders { get; set; }
   }
 }

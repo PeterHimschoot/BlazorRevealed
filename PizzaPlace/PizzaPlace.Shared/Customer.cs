@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.Collections;
 
@@ -15,6 +13,10 @@ namespace PizzaPlace.Shared
     public string Street { get; set; }
 
     public string City { get; set; }
+
+    public Order Order { get; set; }
+
+    // The rest of the class omitted for clarity
 
     public bool HasErrors => GetErrors(string.Empty).Any();
 

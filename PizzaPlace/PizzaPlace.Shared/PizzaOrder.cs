@@ -1,6 +1,6 @@
 ﻿namespace PizzaPlace.Shared
 {
-  public class PizzaOrder : Entity
+  public class PizzaOrder 
   {
     public int Id { get; set; }
     public Order Order { get; set; }
